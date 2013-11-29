@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -o pipefail  # trace ERR through pipes
+set -o errtrace  # trace ERR through 'time command' and other functions
+set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+set -o history
+
+MAGIC_BASE="/apps/nuxeo/pkg/bin"
+MAGIC_OPTS="-quiet"
+
+calledas=$(basename "$0")
+if [[ "$calledas" == "magickenv" ]]; then
+  DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
+  cd $DIR
+  for magick in animate compare composite conjure convert display identify import mogrify montage stream 
+  do
+    ln -s magickenv $magick;
+  done
+  exit
+fi
+set +e
+$MAGIC_BASE/$calledas $MAGIC_OPTS "$@"
+R=$?
+{
+  echo "MAGICK: $MAGIC_BASE/$calledas $MAGIC_OPTS $@"
+  echo "MAGICK-WRAPPER exit code $R"
+} >>/tmp/magick.log 2>&1
+exit $R
