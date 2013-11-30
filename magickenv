@@ -11,6 +11,8 @@ MAGIC_LOG=${MAGIC_LOG="/tmp/magick.log"}
 
 calledas=$(basename "$0")
 
+# if this script is called as "magicenv" 
+# then set up symbolic links for all imagemagick commands
 if [[ "$calledas" == "magickenv" ]]; then
   DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
   cd $DIR
@@ -20,6 +22,8 @@ if [[ "$calledas" == "magickenv" ]]; then
   done
   exit
 fi
+# otherwise I'm not being called as "magickenv" so I must be a wrapper
+# execute imagemagick command and log it, adding extra opts
 set +e
 $MAGIC_BASE/$calledas $MAGIC_OPTS "$@"
 R=$?
