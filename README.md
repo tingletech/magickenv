@@ -3,9 +3,14 @@ magickenv
 
 env wrapper for debugging nuxeo and imagemagick
 
-Step 1: edit `MAGICK_BASE` in `magicenv` or set in environment
+Step 1: edit `MAGICK_BASE` in `magicenv` or set in environment to point to directory with real ImageMagick.
 
-Step 2: put directory on your `PATH` in front of imagemagick
+Step 2: edit `MAGICK_OPTS` in `magicenv` or set in environment if you don't want to add '-quiet' option to
+ImageMagick commands to suppress warnings that choke Nuxeo.
+
+Step 3: edit `MAGICK_LOG` if you don't want wrapper logs to go to `/tmp/magick.log`
+
+Step 4: put directory on your `PATH` in front of imagemagick
 
 
 # License 
