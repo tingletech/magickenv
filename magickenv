@@ -4,10 +4,9 @@ set -o errtrace  # trace ERR through 'time command' and other functions
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
 
-
-MAGIC_BASE=${MAGIC_BASE-"/apps/nuxeo/pkg/bin"}
-MAGIC_OPTS=${MAGIC_OPTS-"-quiet"}
-MAGIC_LOG=${MAGIC_LOG="/tmp/magick.log"}
+MAGICK_BASE=${MAGICK_BASE-"/apps/nuxeo/pkg/bin"}
+MAGICK_OPTS=${MAGICK_OPTS-"-quiet"}
+MAGICK_LOG=${MAGICK_LOG="/tmp/magick.log"}
 
 calledas=$(basename "$0")
 
@@ -25,10 +24,10 @@ fi
 # otherwise I'm not being called as "magickenv" so I must be a wrapper
 # execute imagemagick command and log it, adding extra opts
 set +e
-$MAGIC_BASE/$calledas $MAGIC_OPTS "$@"
+$MAGICK_BASE/$calledas $MAGICK_OPTS "$@"
 R=$?
 {
-  echo "MAGICK: $MAGIC_BASE/$calledas $MAGIC_OPTS $@"
+  echo "MAGICK: $MAGICK_BASE/$calledas $MAGICK_OPTS $@"
   echo "MAGICK-WRAPPER exit code $R"
-} >>$MAGIC_LOG 2>&1
+} >>$MAGICK_LOG 2>&1
 exit $R
