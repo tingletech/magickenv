@@ -9,19 +9,10 @@ MAGICK_OPTS=${MAGICK_OPTS-"-quiet"}
 MAGICK_LOG=${MAGICK_LOG="/tmp/magick.log"}
 
 calledas=$(basename "$0")
-
-# if this script is called as "magicenv" 
-# then set up symbolic links for all imagemagick commands
 if [[ "$calledas" == "magickenv" ]]; then
-  DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
-  cd $DIR
-  for magick in animate compare composite conjure convert display identify import mogrify montage stream 
-  do
-    ln -s magickenv $magick;
-  done
   exit
 fi
-# otherwise I'm not being called as "magickenv" so I must be a wrapper
+
 # execute imagemagick command and log it, adding extra opts
 set +e
 $MAGICK_BASE/$calledas $MAGICK_OPTS "$@"

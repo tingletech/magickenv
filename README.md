@@ -3,11 +3,9 @@ magickenv
 
 env wrapper for debugging nuxeo and imagemagick
 
-Step 1: run `magicenv` to set up the env
+Step 1: edit `MAGICK_BASE` in `magicenv` or set in environment
 
-Step 2: edit `MAGIC_BASE` in `magicenv`
-
-Step 3: put directory on your `PATH` in front of imagemagick
+Step 2: put directory on your `PATH` in front of imagemagick
 
 
 # License 
