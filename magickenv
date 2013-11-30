@@ -7,8 +7,10 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 
 MAGIC_BASE=${MAGIC_BASE-"/apps/nuxeo/pkg/bin"}
 MAGIC_OPTS=${MAGIC_OPTS-"-quiet"}
+MAGIC_LOG=${MAGIC_LOG="/tmp/magick.log"}
 
 calledas=$(basename "$0")
+
 if [[ "$calledas" == "magickenv" ]]; then
   DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
   cd $DIR
@@ -24,5 +26,5 @@ R=$?
 {
   echo "MAGICK: $MAGIC_BASE/$calledas $MAGIC_OPTS $@"
   echo "MAGICK-WRAPPER exit code $R"
-} >>/tmp/magick.log 2>&1
+} >>$MAGIC_LOG 2>&1
 exit $R
